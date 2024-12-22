@@ -23,16 +23,21 @@ chat_history = st.session_state.my_text
 chat_entity = ["User:", "Chatbot:"]
 
 if len(chat_history) > 0:
-    st.write(chat_entity[(len(chat_history) - 1) % 2])
+    # st.write(chat_entity[(len(chat_history) - 1) % 2])
     display_chat = ""
-    chatbot_chat = st.info(display_chat)
+    chatbot_chat = st.empty()
 
 for i in range(len(chat_history) - 2, -1, -1):
-    st.write(chat_entity[i % 2])
-    st.info(chat_history[i])
+    # st.write(chat_entity[i % 2])
+    if i % 2 == 0:
+        st.markdown(
+            "<div style='text-align: right;'>" + chat_history[i] + "</div>",
+            unsafe_allow_html=True
+        )
+    else: st.write(chat_history[i])
 
 if len(chat_history) > 0:
     for char in chat_history[-1]:
         display_chat += char
-        chatbot_chat.info(display_chat)
-        time.sleep(0.05)
+        chatbot_chat.write(display_chat)
+        time.sleep(0.02)
